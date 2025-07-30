@@ -1,72 +1,76 @@
-# Secure Azure Infrastructure for Web Hosting
-Deploy a real-world Azure environment with VMs, App Services, Storage, Monitoring, Backup, RBAC, and Security controls. This mimics an Azure Admin's responsibilities in a corporate environment.
+# Azure Infrastructure Lab for AZ-104 Practical Learning
 
-# Azure Infrastructure Lab – Initial Setup (Compute + Network + Identity)
+This project is a hands-on Azure infrastructure lab aligned with the [AZ-104: Microsoft Azure Administrator](https://learn.microsoft.com/en-us/certifications/azure-administrator/) certification objectives. It is built progressively to simulate real-world infrastructure deployment using Azure CLI, PowerShell, and Bicep where relevant.
 
-This section lays the foundation for a real-world Azure environment by provisioning basic infrastructure services using the Azure CLI. It demonstrates the creation of a Virtual Machine in a secure network, connected through NSG rules, and access-controlled via RBAC roles.
-
----
-
-## ✅ Objectives
-
-- Provision core infrastructure components (VM, VNet, Subnet, NSG, Public IP)
-- Secure access to VM using Network Security Group (NSG)
-- Implement Role-Based Access Control (RBAC) at the Resource Group level
-- Practice core Azure CLI commands aligned with AZ-104 learning goals
+The goal is to solidify your understanding of Azure core services, networking, identity, governance, monitoring, and backup — all within your free credit or pay-as-you-go subscription.
 
 ---
 
-## 📁 Folder Structure
-
-01_compute_network/
-├── create-vm.sh # Script to provision VM with networking
-├── configure-nsg.sh # Script to create NSG and SSH rule
-└── setup-rbac.md # Role assignment for Reader access
-
-yaml
-Copy
-Edit
+## 🔧 Technologies Used
+- Azure CLI
+- PowerShell (optional)
+- Azure Resource Manager
+- Azure Portal
+- Git for version control
 
 ---
 
-## 🔧 What’s Implemented
-
-| Feature                 | Description |
-|------------------------|-------------|
-| **Resource Group**     | Container for all lab resources (`rg-infra-lab`) |
-| **Virtual Network**    | Created with subnet for web tier |
-| **Public IP**          | Static public IP for SSH access |
-| **NSG**                | Allows only port 22 (SSH) |
-| **VM (Ubuntu LTS)**    | Lightweight VM deployed with auto-generated SSH keys |
-| **NIC with NSG + IP**  | Network Interface Card connected to VNet and secured with NSG |
-| **RBAC**               | Reader role assigned to a test user for practice |
-
----
-
-## 🔐 Security Notes
-
-- Only port **22** is open for remote access via NSG.
-- SSH keys are generated automatically and stored in `~/.ssh` for current user.
-- No public storage buckets or open web ports are exposed.
-
----
-
-## 📊 AZ-104 Concepts Practiced
-
-- Create and manage Azure Resource Groups
-- Deploy and configure virtual machines
-- Configure Virtual Network, Subnet, and NSG rules
-- Assign RBAC roles using Azure CLI
-- Retrieve activity logs for auditing access
-
----
-
-## 🧠 Useful Azure CLI Commands
+## 📦 Project Structure
 
 ```bash
-az group create ...
-az network vnet create ...
-az network nsg rule create ...
-az vm create ...
-az role assignment create ...
-az monitor activity-log list ...
+azure-infra-lab/
+├── 01_compute_network/            # VM, VNet, NSG, Public IP
+├── 02_app_service_monitoring/     # Web App, Log Analytics, Diagnostics
+├── 03_backup_identity/            # Recovery Vault, RBAC, Key Vault
+├── global-resources/              # Shared tagging, cleanup scripts
+└── README.md                      # Project overview (this file)
+```
+
+Each folder has:
+- A `README.md` explaining its purpose
+- Scripts (`.sh`, `.json`, `.bicep`) to deploy resources
+
+---
+
+## 🧭 Learning Objectives
+
+✅ Understand how to:
+- Create and manage compute resources (VMs, scale sets)
+- Configure networking with NSGs, VNets, and subnets
+- Apply and manage role-based access control (RBAC)
+- Implement monitoring and diagnostics
+- Automate backups and disaster recovery
+- Secure secrets with Azure Key Vault
+
+---
+
+## 🚀 Getting Started
+
+1. Fork this repo to your GitHub account
+2. Open [Azure Cloud Shell](https://shell.azure.com/)
+3. Clone your fork and follow each phase step-by-step
+4. Track changes using Git with clear commits
+
+```bash
+git clone https://github.com/your-username/azure-infra-lab.git
+cd azure-infra-lab
+```
+
+---
+
+## 📘 AZ-104 Topic Mapping (in progress)
+
+| Module | Area | Folder |
+|--------|------|--------|
+| Manage Azure identities & governance | RBAC, Tags, Policies | `03_backup_identity/`, `global-resources/` |
+| Implement & manage storage | Storage Account, Key Vault | `03_backup_identity/` |
+| Deploy & manage compute | VM, VMSS | `01_compute_network/` |
+| Configure & manage virtual networks | VNet, NSG | `01_compute_network/` |
+| Monitor & backup Azure resources | Log Analytics, Backup Vault | `02_app_service_monitoring/`, `03_backup_identity/` |
+
+---
+
+---
+
+## 🤝 Contributing
+This is a personal learning project. Forks welcome!
