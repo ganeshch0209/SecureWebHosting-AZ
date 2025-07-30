@@ -69,8 +69,3 @@ cd azure-infra-lab
 | Manage Azure identities & governance | RBAC, Tags, Policies | `03_backup_identity/`, `global-resources/` |
 
 ---
-
----
-
-## 🤝 Contributing
-This is a personal learning project. Forks welcome!
