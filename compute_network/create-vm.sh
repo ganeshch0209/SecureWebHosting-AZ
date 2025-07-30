@@ -1,46 +1,79 @@
 #!/bin/bash
 
 # Variables
-location="southindia"
-rg="demo-lab-rg"
-vnet="demo-vnet"
-subnet="demo-subnet"
-nsg="demo-nsg"
-nic="demo-nic"
-vm="demo-vm"
-ip="demo-ip"
-user="azureuser"
-image="Ubuntu2404"
+RESOURCE_GROUP="demo-lab-rg"
+LOCATION="southindia"
+VNET_NAME="demo-vnet"
+SUBNET_NAME="demo-subnet"
+NSG_NAME="demo-nsg"
+NIC_NAME="demo-nic"
+PUBLIC_IP_NAME="demo-public-ip"
+VM_NAME="demo-vm"
+USERNAME="azureuser"
 
-# Create resource group
-az group create --name $rg --location $location
+# Create Resource Group
+echo "🛠️ Creating Resource Group..."
+az group create --name $RESOURCE_GROUP --location $LOCATION
 
 # Create VNet and Subnet
-az network vnet create --resource-group $rg --name $vnet \
+echo "🌐 Creating Virtual Network and Subnet..."
+az network vnet create \
+  --resource-group $RESOURCE_GROUP \
+  --name $VNET_NAME \
   --address-prefix 10.0.0.0/16 \
-  --subnet-name $subnet --subnet-prefix 10.0.1.0/24
+  --subnet-name $SUBNET_NAME \
+  --subnet-prefix 10.0.1.0/24
 
-# Create NSG with SSH rule
-az network nsg create --resource-group $rg --name $nsg
-az network nsg rule create --resource-group $rg --nsg-name $nsg \
-  --name Allow-SSH --priority 1000 --protocol Tcp \
-  --direction Inbound --source-address-prefixes '*' \
-  --source-port-ranges '*' --destination-port-ranges 22 \
+# Create NSG and allow SSH
+echo "🔐 Creating Network Security Group and SSH rule..."
+az network nsg create \
+  --resource-group $RESOURCE_GROUP \
+  --name $NSG_NAME
+
+az network nsg rule create \
+  --resource-group $RESOURCE_GROUP \
+  --nsg-name $NSG_NAME \
+  --name Allow-SSH \
+  --protocol Tcp \
+  --direction Inbound \
+  --priority 1000 \
+  --source-address-prefixes '*' \
+  --source-port-ranges '*' \
+  --destination-address-prefixes '*' \
+  --destination-port-ranges 22 \
   --access Allow
 
-# Create public IP
-az network public-ip create --resource-group $rg --name $ip
+# Create Public IP
+echo "🌍 Creating Public IP..."
+az network public-ip create \
+  --resource-group $RESOURCE_GROUP \
+  --name $PUBLIC_IP_NAME \
+  --allocation-method Dynamic
 
 # Create NIC
-az network nic create --resource-group $rg --name $nic \
-  --vnet-name $vnet --subnet $subnet \
-  --network-security-group $nsg \
-  --public-ip-address $ip
+echo "🔧 Creating Network Interface..."
+az network nic create \
+  --resource-group $RESOURCE_GROUP \
+  --name $NIC_NAME \
+  --vnet-name $VNET_NAME \
+  --subnet $SUBNET_NAME \
+  --network-security-group $NSG_NAME \
+  --public-ip-address $PUBLIC_IP_NAME
 
 # Create VM
-az vm create --resource-group $rg --name $vm \
-  --image $image --admin-username $user \
-  --generate-ssh-keys --nics $nic
+echo "💻 Creating Ubuntu VM..."
+az vm create \
+  --resource-group $RESOURCE_GROUP \
+  --name $VM_NAME \
+  --nics $NIC_NAME \
+  --image UbuntuLTS \
+  --admin-username $USERNAME \
+  --generate-ssh-keys \
+  --size Standard_B1s \
+  --location $LOCATION
 
-# Output IP
-az vm list-ip-addresses --resource-group $rg --name $vm --output table
+# Get Public IP
+IP=$(az vm list-ip-addresses --resource-group $RESOURCE_GROUP --name $VM_NAME --query "[].virtualMachine.network.publicIpAddresses[].ipAddress" -o tsv)
+
+echo "✅ VM Created Successfully!"
+echo "🔗 SSH using: ssh $USERNAME@$IP"
