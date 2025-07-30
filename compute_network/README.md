@@ -95,8 +95,6 @@ mkdir -p log
 ./create-vm.sh | tee log/setup_output.txt
 ```
 
-This helps keep your GitHub project clean and auditable.
-
 ---
 
 ## 📘 Related AZ-104 Domains
