@@ -43,12 +43,13 @@ az network nsg rule create \
   --destination-port-ranges 22 \
   --access Allow
 
-# Create Public IP
+# Create Public IP with Static allocation (required for Standard SKU)
 echo "🌍 Creating Public IP..."
 az network public-ip create \
   --resource-group $RESOURCE_GROUP \
   --name $PUBLIC_IP_NAME \
-  --allocation-method Dynamic
+  --allocation-method Static \
+  --sku Standard
 
 # Create NIC
 echo "🔧 Creating Network Interface..."
@@ -60,13 +61,13 @@ az network nic create \
   --network-security-group $NSG_NAME \
   --public-ip-address $PUBLIC_IP_NAME
 
-# Create VM
+# Create VM (use a valid image)
 echo "💻 Creating Ubuntu VM..."
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM_NAME \
   --nics $NIC_NAME \
-  --image UbuntuLTS \
+  --image Ubuntu2204 \
   --admin-username $USERNAME \
   --generate-ssh-keys \
   --size Standard_B1s \
