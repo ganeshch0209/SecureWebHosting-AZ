@@ -2,13 +2,13 @@
 
 # Variables
 location="eastus"
-rg="az104-lab-rg"
-vnet="az104-vnet"
-subnet="az104-subnet"
-nsg="az104-nsg"
-nic="az104-nic"
-vm="az104-vm"
-ip="az104-ip"
+rg="demo-lab-rg"
+vnet="demo-vnet"
+subnet="demo-subnet"
+nsg="demo-nsg"
+nic="demo-nic"
+vm="demo-vm"
+ip="demo-ip"
 user="azureuser"
 image="Ubuntu2404"
 
