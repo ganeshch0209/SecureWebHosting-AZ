@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-location="india"
+location="southindia"
 rg="demo-lab-rg"
 vnet="demo-vnet"
 subnet="demo-subnet"
