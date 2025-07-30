@@ -62,11 +62,11 @@ cd azure-infra-lab
 
 | Module | Area | Folder |
 |--------|------|--------|
-| Manage Azure identities & governance | RBAC, Tags, Policies | `03_backup_identity/`, `global-resources/` |
-| Implement & manage storage | Storage Account, Key Vault | `03_backup_identity/` |
 | Deploy & manage compute | VM, VMSS | `01_compute_network/` |
 | Configure & manage virtual networks | VNet, NSG | `01_compute_network/` |
 | Monitor & backup Azure resources | Log Analytics, Backup Vault | `02_app_service_monitoring/`, `03_backup_identity/` |
+| Implement & manage storage | Storage Account, Key Vault | `03_backup_identity/` |
+| Manage Azure identities & governance | RBAC, Tags, Policies | `03_backup_identity/`, `global-resources/` |
 
 ---
 
