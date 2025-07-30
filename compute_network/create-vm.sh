@@ -10,7 +10,7 @@ nic="az104-nic"
 vm="az104-vm"
 ip="az104-ip"
 user="azureuser"
-image="UbuntuLTS"
+image="ubuntu-24_04-lts"
 
 # Create resource group
 az group create --name $rg --location $location
