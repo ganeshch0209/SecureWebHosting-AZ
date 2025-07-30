@@ -19,7 +19,7 @@ This phase sets up the foundational compute and networking environment required 
 | File           | Purpose                                  |
 |----------------|------------------------------------------|
 | `create-vm.sh` | Bash script to create the full setup     |
-| `teardown.sh`  | Script to delete all related resources   |
+| `purge-env.sh` | Script to delete all related resources   |
 
 ---
 
@@ -57,8 +57,8 @@ ssh azureuser@20.123.45.67
 ## 🧹 Cleanup (Optional)
 If you'd like to remove everything:
 ```bash
-chmod +x teardown.sh
-./teardown.sh
+chmod +x purge-env.sh
+./purge-env.sh
 ```
 
 ---
@@ -76,4 +76,3 @@ chmod +x teardown.sh
 
 ## 🔚 Next Step
 After validating connectivity, move to Phase 2 where you'll deploy App Services, logging, and monitoring.
-
