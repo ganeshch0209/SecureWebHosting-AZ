@@ -61,6 +61,42 @@ chmod +x purge-env.sh
 ./purge-env.sh
 ```
 
+### purge-env.sh
+```bash
+#!/bin/bash
+
+# Variables
+RESOURCE_GROUP="az104-lab-rg"
+
+echo "⚠️  This will delete the entire resource group: $RESOURCE_GROUP"
+read -p "Type 'YES' to continue: " CONFIRM
+
+if [ "$CONFIRM" == "YES" ]; then
+  echo "🧹 Deleting resource group: $RESOURCE_GROUP ..."
+  az group delete --name $RESOURCE_GROUP --yes --no-wait
+  echo "✅ Deletion initiated. Check Azure Portal for progress."
+else
+  echo "❌ Aborted. No resources were deleted."
+fi
+```
+
+---
+
+## 📁 Logs Folder (Optional)
+Create a `log/` folder to store:
+
+- Shell output logs
+- Deployment outputs
+- Screenshot links (optional)
+
+Example usage in Cloud Shell:
+```bash
+mkdir -p log
+./create-vm.sh | tee log/setup_output.txt
+```
+
+This helps keep your GitHub project clean and auditable.
+
 ---
 
 ## 📘 Related AZ-104 Domains
